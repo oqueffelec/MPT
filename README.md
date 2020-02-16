@@ -10,7 +10,7 @@ Tous les lundis, un nouveau score d'equipe est alors calculé en sommant les sco
 
 Exemple : 
 
- | Joueurs Equipe d'Octave | Classment ATP Semaine 1| Score MPT Semaine 1| Classment ATP Semaine 2| Score MPT Semaine 2|
+ | Joueurs Equipe d'Octave | Classement ATP Semaine 1| Score MPT Semaine 1| Classement ATP Semaine 2| Score MPT Semaine 2|
  | -------|:------:| -----:|:------:| -----:|
  | Thiem | 5 | 5 | 8 | 8 |
  | Shapovalov | 13 | 13 | 6 | 6 |
