@@ -3,26 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
 <body>
-    <h1>Bienvenue à toi sur la page d'acceuil de Mon Petit Tennis !</h1>    
+    <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-8">
+            <h1 class="mt-2">Bienvenue à toi sur la page d'acceuil de Mon Petit Tennis !</h1>
+            <hr class="mt-0 mb-4">
+            {% block content %}
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="OK">
+            </form>
+            <div>
+                <h3>Tournois en cours : </h3>    
+            </div>
+            <ul>
+                {% for tournoi in tournaments %}
+                <li>
+                    {{ tournoi }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endblock %}
+          </div>
+        </div>
+      </div>
 </body>
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="OK">
-</form>
-<div>
-    <h3>Tournois en cours : </h3>    
-</div>
-<ul>
-    {% for tournoi in tournaments %}
-    <li>
-        {{ tournoi }}
-    </li>
-    {% endfor %}
-</ul>
-
 </html>
