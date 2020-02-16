@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Bienvenue à toi sur la page d'acceuil de Mon Petit Tennis !</h1>    
+</body>
+<div>
+    <button type="submit">Nouveau Tournoi</button>
+</div>
+<div>
+    <h3>Tournois en cours : </h3>    
+</div>
+<ul>
+    {% for tournoi in tournaments %}
+    <li>
+        {{ tournoi }}
+    </li>
+    {% endfor %}
+</ul>
+</html>
