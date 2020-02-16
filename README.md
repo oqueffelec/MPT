@@ -22,7 +22,6 @@ Exemple :
  | Delbonis | 73 | 73 | 53 | 53 |
  | Barrere | 82 | 82 | 88 | 88 |
  | Dzumhur | 92 | 92 | 78 | 78 |
- | -------|:------:| -----:|:------:| -----:|
  | Total | 503 | 503 | 443 | 443 |
 
 Classement des equipes : 
