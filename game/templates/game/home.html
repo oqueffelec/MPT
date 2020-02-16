@@ -9,9 +9,11 @@
 <body>
     <h1>Bienvenue à toi sur la page d'acceuil de Mon Petit Tennis !</h1>    
 </body>
-<div>
-    <button type="submit">Nouveau Tournoi</button>
-</div>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="OK">
+</form>
 <div>
     <h3>Tournois en cours : </h3>    
 </div>
@@ -22,4 +24,5 @@
     </li>
     {% endfor %}
 </ul>
+
 </html>

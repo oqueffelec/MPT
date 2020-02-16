@@ -1,11 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from game.models import *
-# Create your views here.
+from .forms import TournamentForm
 
 def home(request):
     tournaments = Tournament.objects.all()
-    return render(request, 'game/home.html', {'tournaments' : tournaments})
+    if request.method == 'POST':
+        form = TournamentForm(request.POST)
+        if form.is_valid(): 
+           tournament_name = form.cleaned_data['name']
+           Tournament(name = tournament_name).save()
+    else : 
+        form = TournamentForm()
+    return render(request, 'game/home.html', locals())
 
 def tournament(request):
     return HttpResponse("""<h1> Creer ou rejoindre un tournoi </h1>""")
