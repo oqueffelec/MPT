@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 '''class User(models.Model):
     first_name = models.TextField()
@@ -8,6 +9,7 @@ from django.db import models
 '''
 class Tournament(models.Model):
     name = models.TextField()
+    #date_created = models.DateTimeField(default=timezone.now, verbose_name="Date de parution")
     #user = models.ForeignKey('User', on_delete=models.CASCADE)
 
     def __str__(self):

@@ -22,11 +22,13 @@
             <div>
                 <h3>Tournois en cours : </h3>    
             </div>
-            <ul>
                 {% for tournoi in tournaments %}
-                <li>
-                    {{ tournoi }}
-                </li>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ tournoi }}</h5>
+                      <a href="#" class="btn btn-primary">Delete</a>
+                    </div>
+                  </div>                
                 {% endfor %}
             </ul>
             {% endblock %}

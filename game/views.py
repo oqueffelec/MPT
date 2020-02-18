@@ -2,6 +2,19 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from game.models import *
 from .forms import TournamentForm
+from django.views.generic import ListView, DetailView
+
+class TournamentListView(ListView):
+    model = Tournament
+    template_name = 'game/home.html'
+    context_object_name = 'tournaments'
+    #ordering = ['-date_created']
+
+class TournamentDetailView(DetailView):
+    model = Tournament
+    template_name = 'game/home.html'
+    context_object_name = 'tournaments'
+    #ordering = ['-date_created']
 
 def home(request):
     tournaments = Tournament.objects.all()
