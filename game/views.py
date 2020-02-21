@@ -12,7 +12,7 @@ class TournamentListView(ListView):
 
 class TournamentDetailView(DetailView):
     model = Tournament
-    template_name = 'game/home.html'
+    template_name = 'game/tournament-detail.html'
     context_object_name = 'tournaments'
     #ordering = ['-date_created']
 

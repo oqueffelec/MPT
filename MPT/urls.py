@@ -20,9 +20,8 @@ from game.views import TournamentListView, TournamentDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tournament/<int:pk>', TournamentDetailView.as_view(), name='tournament-detail'),
+    path('tournament/<int:pk>/', TournamentDetailView.as_view(), name='tournament-detail'),
     path('', TournamentListView.as_view(), name='home'),
-    path('tournament/', views.tournament),
     path('player/', views.player),
     path('team/', views.team),
 ]

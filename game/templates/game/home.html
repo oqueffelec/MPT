@@ -25,7 +25,9 @@
                 {% for tournoi in tournaments %}
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
-                      <h5 class="card-title">{{ tournoi }}</h5>
+                    
+                        <a class="card-title" href="{% url 'tournament-detail' tournoi.id %}">{{ tournoi }}</a>
+                    
                       <a href="#" class="btn btn-primary">Delete</a>
                     </div>
                   </div>                
