@@ -25,6 +25,4 @@ urlpatterns = [
     path('tournament/new/', TournamentCreateView.as_view(), name='tournament-create'),
     path('tournament/<int:pk>/delete', TournamentDeleteView.as_view(success_url=reverse_lazy('home')), name='tournament-delete'),
     path('', TournamentListView.as_view(), name='home'),
-    path('player/', views.player),
-    path('team/', views.team),
 ]
