@@ -9,17 +9,16 @@ class TournamentListView(ListView):
     model = Tournament
     template_name = 'game/home.html'
     context_object_name = 'tournaments'
-    #ordering = ['-date_created']
+    ordering = ['-date_created']
 
 class TournamentDetailView(DetailView):
     model = Tournament
     template_name = 'game/tournament/tournament-detail.html'
     context_object_name = 'tournaments'
-    #ordering = ['-date_created']
 
 class TournamentCreateView(CreateView):
     model = Tournament
-    fields = ['name']
+    fields = ['name', 'description']
     template_name = 'game/tournament/tournament-create.html'
 
 class TournamentDeleteView(DeleteView):

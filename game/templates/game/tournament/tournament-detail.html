@@ -17,6 +17,7 @@
         </div>
       </div>
     <h1 class="card-title">Nom du tournoi : {{ tournaments.name }}</h1>
+    <h1 class="card-title">Description : {{ tournaments.description }}</h1>
     <h1 class="card-title">Date de création : {{ tournaments.date_created }}</h1>
     <a href="{% url 'tournament-delete' object.id %}" class="btn btn-primary">Delete</a> 
 </body>
