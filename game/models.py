@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 '''class User(models.Model):
     first_name = models.TextField()
@@ -14,6 +15,9 @@ class Tournament(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('home')
 
 class Team(models.Model):
     name = models.TextField()

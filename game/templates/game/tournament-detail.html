@@ -17,6 +17,6 @@
         </div>
       </div>
     <h1 class="card-title">{{ tournaments.name }}</h1>
-    <a href="#" class="btn btn-primary">Delete</a> 
+    <a href="{% url 'tournament-delete' object.id %}" class="btn btn-primary">Delete</a> 
 </body>
 </html>

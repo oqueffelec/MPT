@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from game.models import *
 from .forms import TournamentForm
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
+from django.urls import reverse_lazy
 
 class TournamentListView(ListView):
     model = Tournament
@@ -15,6 +16,17 @@ class TournamentDetailView(DetailView):
     template_name = 'game/tournament-detail.html'
     context_object_name = 'tournaments'
     #ordering = ['-date_created']
+
+class TournamentCreateView(CreateView):
+    model = Tournament
+    fields = ['name']
+
+class TournamentDeleteView(DeleteView):
+    model = Tournament
+    template_name = 'game/tournament-delete.html'
+    context_object_name = 'tournaments'
+    fields = ['name']
+    sucess_url = reverse_lazy('home')
 
 def home(request):
     tournaments = Tournament.objects.all()

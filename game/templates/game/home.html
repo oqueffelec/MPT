@@ -14,11 +14,7 @@
             <h1 class="mt-2">Bienvenue à toi sur la page d'acceuil de Mon Petit Tennis !</h1>
             <hr class="mt-0 mb-4">
             {% block content %}
-            <form action="" method="post">
-                {% csrf_token %}
-                {{ form }}
-                <input type="submit" value="OK">
-            </form>
+                <a class="card-title" href="{% url 'tournament-create' %}">Creer un tournoi</a>
             <div>
                 <h3>Tournois en cours : </h3>    
             </div>
@@ -28,8 +24,14 @@
                     
                         <a class="card-title" href="{% url 'tournament-detail' tournoi.id %}">{{ tournoi }}</a>
                     
-                      <a href="#" class="btn btn-primary">Delete</a>
                     </div>
+                    <form action="{% url 'tournament-delete' tournoi.id %}" method="post">
+                      {% csrf_token %}
+                      <input type="hidden" name="tournament_id" value="{{tournoi.id}}"/>
+                      <button type="submit" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-trash"></span>
+                      </button>
+                    </form>
                   </div>                
                 {% endfor %}
             </ul>
