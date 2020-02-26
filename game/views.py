@@ -13,17 +13,18 @@ class TournamentListView(ListView):
 
 class TournamentDetailView(DetailView):
     model = Tournament
-    template_name = 'game/tournament-detail.html'
+    template_name = 'game/tournament/tournament-detail.html'
     context_object_name = 'tournaments'
     #ordering = ['-date_created']
 
 class TournamentCreateView(CreateView):
     model = Tournament
     fields = ['name']
+    template_name = 'game/tournament/tournament_form.html'
 
 class TournamentDeleteView(DeleteView):
     model = Tournament
-    template_name = 'game/tournament-delete.html'
+    template_name = 'game/tournament/tournament-delete.html'
     context_object_name = 'tournaments'
     fields = ['name']
     sucess_url = reverse_lazy('home')

@@ -25,13 +25,7 @@
                         <a class="card-title" href="{% url 'tournament-detail' tournoi.id %}">{{ tournoi }}</a>
                     
                     </div>
-                    <form action="{% url 'tournament-delete' tournoi.id %}" method="post">
-                      {% csrf_token %}
-                      <input type="hidden" name="tournament_id" value="{{tournoi.id}}"/>
-                      <button type="submit" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-trash"></span>
-                      </button>
-                    </form>
+                    <a href="{% url 'tournament-delete' tournoi.id %}" class="btn btn-primary">Delete</a>
                   </div>                
                 {% endfor %}
             </ul>
