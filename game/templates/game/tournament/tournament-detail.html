@@ -19,6 +19,15 @@
     <h1 class="card-title">Nom du tournoi : {{ tournaments.name }}</h1>
     <h1 class="card-title">Description : {{ tournaments.description }}</h1>
     <h1 class="card-title">Date de création : {{ tournaments.date_created }}</h1>
+    <a href="{% url 'team-create' object.id %}" class="btn btn-primary">Créer une equipe</a> 
     <a href="{% url 'tournament-delete' object.id %}" class="btn btn-primary">Delete</a> 
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <h1 class="mt-2">Equipes !</h1>
+          <a href="{% url 'tournament-teams' object.id %}" class="btn btn-primary">Voir les equipes</a> 
+        </div>
+      </div>
+    </div>
 </body>
 </html>

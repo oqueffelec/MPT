@@ -16,13 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from game import views
-from game.views import TournamentListView, TournamentDetailView, TournamentCreateView, TournamentDeleteView
+from game.views import TeamCreateView, TournamentListView, TournamentDetailView, TournamentCreateView, TournamentDeleteView, TournamentTeamsListView, TeamDeleteView
 from django.urls import reverse_lazy
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('tournament/<int:pk>/team/new', TeamCreateView.as_view(), name='team-create'),
     path('tournament/<int:pk>/', TournamentDetailView.as_view(), name='tournament-detail'),
+    path('tournament/<int:pk>/teams', TournamentTeamsListView.as_view(), name='tournament-teams'),
     path('tournament/new/', TournamentCreateView.as_view(), name='tournament-create'),
     path('tournament/<int:pk>/delete', TournamentDeleteView.as_view(success_url=reverse_lazy('home')), name='tournament-delete'),
+    path('tournament/<int:pk>/teams/<int:pk2>/delete', TeamDeleteView.as_view(success_url=reverse_lazy('home')), name='team-delete'),
     path('', TournamentListView.as_view(), name='home'),
 ]

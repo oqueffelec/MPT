@@ -24,6 +24,12 @@ class Team(models.Model):
     name = models.TextField()
     tournament = models.ForeignKey('Tournament', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('home')
+
 class Player(models.Model):
     first_name = models.TextField()
     last_name = models.TextField()
