@@ -14,7 +14,12 @@
             <h1 class="mt-2">Bienvenue à toi sur la page d'acceuil de Mon Petit Tennis !</h1>
             <hr class="mt-0 mb-4">
             {% block content %}
-                <a class="card-title" href="{% url 'tournament-create' %}">Creer un tournoi</a>
+            <div>
+              <a class="card-title" href="{% url 'tournament-create' %}">Creer un tournoi</a>
+            </div>
+            <div>
+              <a class="card-title" href="{% url 'player-ranking' %}">Classement ATP en direct</a>
+            </div>
             <div>
                 <h3>Tournois en cours : </h3>    
             </div>

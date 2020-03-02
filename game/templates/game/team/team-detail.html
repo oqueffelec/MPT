@@ -11,17 +11,17 @@
     <div class="container">
         <div class="row justify-content-center">
           <div class="col-8">
-            <h1 class="mt-2">Equipes présentes dans le tournoi : </h1>
+            <h1 class="mt-2">Liste des joueurs de l'équipe  : </h1>
             <hr class="mt-0 mb-4">              
           </div>
         </div>
       </div>
-      {% for team in teams %}
+      {% for player in players %}
       <div class="card" style="width: 18rem;">
           <div class="card-body">
-              <a href="{% url 'team-players' team.tournament.id team.id %}" class="card-title">{{ team }}</a>
+              <a class="card-title">{{ player.name }}</a>
           </div>
-          <a href="{% url 'team-delete' team.tournament.id team.id %}" class="btn btn-primary">Delete</a>             
+          <a  class="btn btn-primary">Delete</a>             
         </div>   
       {% endfor %}
 </body>
