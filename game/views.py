@@ -31,6 +31,20 @@ class TeamUpdateView(UpdateView):
     sucess_url = reverse_lazy('home')
     pk_url_kwarg = 'pk2'
     fields = ['player1', 'player2', 'player3', 'player4', 'player5', 'player6', 'player7', 'player8', 'player9', 'player10']
+    
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=None)
+        form.fields['player1'].queryset = form.fields['player1'].queryset.filter(rank__lte=10).order_by('rank')
+        form.fields['player2'].queryset = form.fields['player2'].queryset.filter(rank__gte=11,rank__lte=20).order_by('rank')
+        form.fields['player3'].queryset = form.fields['player3'].queryset.filter(rank__gte=21,rank__lte=30).order_by('rank')
+        form.fields['player4'].queryset = form.fields['player4'].queryset.filter(rank__gte=31,rank__lte=40).order_by('rank')
+        form.fields['player5'].queryset = form.fields['player5'].queryset.filter(rank__gte=41,rank__lte=50).order_by('rank')
+        form.fields['player6'].queryset = form.fields['player6'].queryset.filter(rank__gte=51,rank__lte=60).order_by('rank')
+        form.fields['player7'].queryset = form.fields['player7'].queryset.filter(rank__gte=61,rank__lte=70).order_by('rank')
+        form.fields['player8'].queryset = form.fields['player8'].queryset.filter(rank__gte=71,rank__lte=80).order_by('rank')
+        form.fields['player9'].queryset = form.fields['player9'].queryset.filter(rank__gte=81,rank__lte=90).order_by('rank')
+        form.fields['player10'].queryset = form.fields['player10'].queryset.filter(rank__gte=91,rank__lte=100).order_by('rank')
+        return form
 
 class TournamentTeamsListView(ListView):
     model = Team
@@ -50,6 +64,12 @@ class TournamentDetailView(DetailView):
     model = Tournament
     template_name = 'game/tournament/tournament-detail.html'
     context_object_name = 'tournaments'
+    
+
+    def get_context_data(self, **kwargs):
+        ctx = super(TournamentDetailView, self).get_context_data(**kwargs)
+        ctx['teams'] = sorted(Team.objects.filter(tournament=self.kwargs['pk']), key=lambda team: team.mpt_score) 
+        return ctx
 
 class TournamentCreateView(CreateView):
     model = Tournament
