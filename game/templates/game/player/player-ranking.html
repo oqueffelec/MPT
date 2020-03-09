@@ -18,9 +18,9 @@
       </div>
       <div class="card" >
           <div class="card-body">
-            {% for player in players %}
+            {% for playerScore in playerScores %}
                 <div>
-                    <a class="card-title">{{ player }}</a>
+                    <a class="card-title">{{ playerScore.player }}</a>
                 </div>
             {% endfor %}
 </body>

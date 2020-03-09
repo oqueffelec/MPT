@@ -16,11 +16,15 @@
           </div>
         </div>
       </div>
-    <h1 class="card-title">Nom du tournoi : {{ tournaments.name }}</h1>
-    <h1 class="card-title">Description : {{ tournaments.description }}</h1>
-    <h1 class="card-title">Date de création : {{ tournaments.date_created }}</h1>
-    <a href="{% url 'team-create' object.id %}" class="btn btn-primary">Créer une equipe</a> 
-    <a href="{% url 'tournament-delete' object.id %}" class="btn btn-primary">Delete</a> 
+    <div>
+      Nom du tournoi : {{ tournaments.name }}
+    </div>
+    <div>
+      Description : {{ tournaments.description }}
+    </div>
+    <div>
+      Date de création : {{ tournaments.date_created }}
+    </div>
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-8">
@@ -28,13 +32,55 @@
         </div>
       </div>
     </div>
-    {% for team in teams %}
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <a href="{% url 'team-players' team.tournament.id team.id %}" class="card-title">{{ team }} Score MPT : {{team.mpt_score}}</a>
-        </div>
-        <a href="{% url 'team-delete' team.tournament.id team.id %}" class="btn btn-primary">Delete</a>             
-      </div>   
-    {% endfor %}
+    <div>
+      <a href="{% url 'team-create' object.id %}" class="btn btn-primary">Créer une equipe</a> 
+      <a href="{% url 'tournament-delete' object.id %}" class="btn btn-dark">Supprimer le tournoi</a> 
+    </div>
 </body>
+<div class="table-responsive">
+<table class="table table-striped table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Equipe</th>
+      <th scope="col">Score MPT</th>
+      <th scope="col">Top 10</th>
+      <th scope="col">Top 20</th>
+      <th scope="col">Top 30</th>
+      <th scope="col">Top 40</th>
+      <th scope="col">Top 50</th>
+      <th scope="col">Top 60</th>
+      <th scope="col">Top 70</th>
+      <th scope="col">Top 80</th>
+      <th scope="col">Top 90</th>
+      <th scope="col">Top 100</th>
+
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for team in teams %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{team.name}}</td>
+      <td>{{team.mpt_score}}</td>
+      <td>{{team.player1}}</td>
+      <td>{{team.player2}}</td>
+      <td>{{team.player3}}</td>
+      <td>{{team.player4}}</td>
+      <td>{{team.player5}}</td>
+      <td>{{team.player6}}</td>
+      <td>{{team.player7}}</td>
+      <td>{{team.player8}}</td>
+      <td>{{team.player9}}</td>
+      <td>{{team.player10}}</td>
+      <td>
+        <a href="{% url 'team-players' team.tournament.id team.id %}" class="btn btn-primary">Modifier les joueurs</a>
+        <a href="{% url 'team-delete' team.tournament.id team.id %}" class="btn btn-dark">Supprimer l'équipe</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
 </html>
