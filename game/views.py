@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from game.rankapi import *
 import datetime 
 import collections
+from operator import itemgetter
 
 class TeamCreateView(CreateView):
     model = Team
@@ -103,10 +104,10 @@ class TournamentDetailView(DetailView):
 
     def getTeamsMptScoreDict(self): 
         teams = Team.objects.filter(tournament=self.kwargs['pk'])
-        teams_mpt_score_set = dict()
+        teams_mpt_score_set = list()
         for team in teams :
-            teams_mpt_score_set[team] = self.getActualPlayerRank(team.player1) + self.getActualPlayerRank(team.player2) + self.getActualPlayerRank(team.player3) + self.getActualPlayerRank(team.player4) + self.getActualPlayerRank(team.player5) + self.getActualPlayerRank(team.player6) + self.getActualPlayerRank(team.player7) + self.getActualPlayerRank(team.player8) + self.getActualPlayerRank(team.player9) + self.getActualPlayerRank(team.player10)
-        teams_mpt_score_set_sorted = {k: v for k, v in sorted(teams_mpt_score_set.items(), key=lambda item: item[1])}
+            teams_mpt_score_set.append([team, self.getActualPlayerRank(team.player1) + self.getActualPlayerRank(team.player2) + self.getActualPlayerRank(team.player3) + self.getActualPlayerRank(team.player4) + self.getActualPlayerRank(team.player5) + self.getActualPlayerRank(team.player6) + self.getActualPlayerRank(team.player7) + self.getActualPlayerRank(team.player8) + self.getActualPlayerRank(team.player9) + self.getActualPlayerRank(team.player10), [self.getActualPlayerRank(team.player1), self.getActualPlayerRank(team.player2), self.getActualPlayerRank(team.player3), self.getActualPlayerRank(team.player4), self.getActualPlayerRank(team.player5), self.getActualPlayerRank(team.player6), self.getActualPlayerRank(team.player7), self.getActualPlayerRank(team.player8), self.getActualPlayerRank(team.player9), self.getActualPlayerRank(team.player10)]])
+        teams_mpt_score_set_sorted = sorted(teams_mpt_score_set, key=itemgetter(1))
         return teams_mpt_score_set_sorted
 
     def get_context_data(self, **kwargs):
