@@ -79,16 +79,16 @@
       <th scope="row">{{forloop.counter}}</th>
       <td>{{team.name}}</td>
       <td>{{mpt_score}}</td>
-      <td>{{ranks.0}} {{team.player1}}</td>
-      <td>{{ranks.1}} {{team.player2}}</td>
-      <td>{{ranks.2}} {{team.player3}}</td>
-      <td>{{ranks.3}} {{team.player4}}</td>
-      <td>{{ranks.4}} {{team.player5}}</td>
-      <td>{{ranks.5}} {{team.player6}}</td>
-      <td>{{ranks.6}} {{team.player7}}</td>
-      <td>{{ranks.7}} {{team.player8}}</td>
-      <td>{{ranks.8}} {{team.player9}}</td>
-      <td>{{ranks.9}} {{team.player10}}</td>
+      <td>{{team.player1}}</td>
+      <td>{{team.player2}}</td>
+      <td>{{team.player3}}</td>
+      <td>{{team.player4}}</td>
+      <td>{{team.player5}}</td>
+      <td>{{team.player6}}</td>
+      <td>{{team.player7}}</td>
+      <td>{{team.player8}}</td>
+      <td>{{team.player9}}</td>
+      <td>{{team.player10}}</td>
       <td>
         <a href="{% url 'team-players' team.tournament.id team.id %}" class="btn btn-primary">Modifier les joueurs</a>
         <a href="{% url 'team-delete' team.tournament.id team.id %}" class="btn btn-dark">Supprimer l'équipe</a>

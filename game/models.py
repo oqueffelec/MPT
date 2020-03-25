@@ -29,7 +29,7 @@ class Player(models.Model):
 
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name + ' -- ' + self.nationality 
+        return str(PlayerScore.objects.get(player=self, year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1])) + ' ' + self.first_name + ' ' + self.last_name + ' -- ' + self.nationality 
 
 class Team(models.Model):
     name = models.TextField()
