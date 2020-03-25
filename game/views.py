@@ -25,8 +25,11 @@ class TeamDeleteView(DeleteView):
     model = Team
     template_name = 'game/team/team-delete.html'
     context_object_name = 'teams'   
-    sucess_url = reverse_lazy('home')
+    sucess_url = reverse_lazy('tournament-detail')
     pk_url_kwarg = 'pk2'
+
+    def get_success_url(self, **kwargs):
+        return reverse('tournament-detail', kwargs={'pk': self.object.tournament.pk})
 
 class TeamUpdateView(UpdateView):
     model = Team
