@@ -122,13 +122,13 @@ class TournamentDetailView(DetailView):
     
     def getWeekList(self):
         tournament = Tournament.objects.get(id=self.kwargs['pk'])
-        week_start = tournament.date_created_tournament.now().isocalendar()[1]
+        week_start = tournament.date_created_tournament.isocalendar()[1]
         week_end = datetime.datetime.now().isocalendar()[1]
         return list(range(week_start, week_end + 1))
 
     def getYearList(self):
         tournament = Tournament.objects.get(id=self.kwargs['pk'])
-        week_start = tournament.date_created_tournament.now().year
+        week_start = tournament.date_created_tournament.year
         week_end = datetime.datetime.now().year
         return list(range(week_start, week_end + 1))
 
