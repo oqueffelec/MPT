@@ -23,7 +23,7 @@
       Description : {{ tournaments.description }}
     </div>
     <div>
-      Date de création : {{ tournaments.date_created }}
+      Date de création : {{ tournaments.date_created_tournament }}
     </div>
     <div class="container">
       <div class="row justify-content-center">
@@ -33,9 +33,24 @@
       </div>
     </div>
     <div>
-      <a href="{% url 'team-create' object.id %}" class="btn btn-primary">Créer une equipe</a> 
-      <a href="{% url 'tournament-delete' object.id %}" class="btn btn-dark">Supprimer le tournoi</a> 
+        <a href="{% url 'team-create' object.id %}" class="btn btn-primary">Créer une equipe</a> 
+        <a href="{% url 'tournament-delete' object.id %}" class="btn btn-dark">Supprimer le tournoi</a> 
     </div>
+    <form action="PageObjects" method="post">
+    <label>Semaine :<label>
+      <select name="dropdownweek">
+          {% for i in week %}
+          <option value="{{ i }}">{{ i }}</option>
+          {% endfor %}
+      </select>
+    </form>
+
+    <label>Année :<label>
+      <select name="dropdownyear">
+          {% for i in year %}
+          <option value="{{ i }}">{{ i }}</option>
+          {% endfor %}
+      </select>
 </body>
 <div class="table-responsive">
 <table class="table table-striped table-bordered">

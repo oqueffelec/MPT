@@ -18,11 +18,13 @@ from django.urls import path
 from game import views
 from game.views import TeamCreateView, TournamentListView, TournamentDetailView, TournamentCreateView, TournamentDeleteView, TournamentTeamsListView, TeamDeleteView, PlayerListView, TeamUpdateView
 from django.urls import reverse_lazy
+from users import views as user_views
 
 urlpatterns = [
+    path('register/', user_views.register, name='register'),
     path('admin/', admin.site.urls),
     path('tournament/<int:pk>/team/new', TeamCreateView.as_view(), name='team-create'),
-    path('tournament/<int:pk>/team/<int:pk2>/update', TeamUpdateView.as_view(), name='team-players'),
+    path('tournament/<int:pk>/team/<int:pk2>/update', TeamUpdateView.as_view(success_url=reverse_lazy('tournament-detail')), name='team-players'),
     path('players/', PlayerListView.as_view(), name='player-ranking'),
     path('tournament/<int:pk>/', TournamentDetailView.as_view(), name='tournament-detail'),
     path('tournament/<int:pk>/teams', TournamentTeamsListView.as_view(), name='tournament-teams'),

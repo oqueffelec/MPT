@@ -17,11 +17,30 @@
         </div>
       </div>
       <div class="card" >
-          <div class="card-body">
-            {% for playerScore in playerScores %}
-                <div>
-                    <a class="card-title">{{ playerScore.player }}</a>
-                </div>
+    <div class="card-body">
+
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Classement</th>
+              <th scope="col">Joueur</th>
+              <th scope="col">Nationalité</th>
+              <th scope="col">Points ATP</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for playerScore in actualPlayerScores %}
+            <tr>
+              <th scope="row">{{playerScore.rank}}</th>
+              <td>{{playerScore.player.first_name}} {{playerScore.player.last_name}}</td>
+              <td>{{playerScore.player.nationality}}</td>
+              <td>{{playerScore.atp_points}}</td>
+            </tr>
             {% endfor %}
+          </tbody>
+        </table>
+        </div>
 </body>
 </html>

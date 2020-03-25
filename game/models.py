@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+import datetime
 
 '''class User(models.Model):
     first_name = models.TextField()
@@ -10,7 +11,7 @@ from django.urls import reverse
 '''
 class Tournament(models.Model):
     name = models.TextField()
-    date_created = models.DateTimeField(default=timezone.now, verbose_name="Date de parution")
+    date_created_tournament = models.DateTimeField(default=timezone.now, verbose_name="date_created_tournament")
     description = models.TextField()
     #user = models.ForeignKey('User', on_delete=models.CASCADE)
 
@@ -21,11 +22,14 @@ class Tournament(models.Model):
         return reverse('home')
 
 class Player(models.Model):
-    name = models.TextField()
+    first_name = models.TextField()
+    last_name = models.TextField()
     nationality = models.TextField()
+    date_created_player = models.DateTimeField(default=timezone.now, verbose_name="date_created_player")
+
 
     def __str__(self):
-        return self.name + '   ' + self.nationality 
+        return self.first_name + ' ' + self.last_name + ' -- ' + self.nationality 
 
 class Team(models.Model):
     name = models.TextField()
@@ -41,6 +45,7 @@ class Team(models.Model):
     player8 = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='player8_player', blank=True, null=True )
     player9 = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='player9_player', blank=True, null=True )
     player10 = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='player10_player', blank=True, null=True )
+    date_created_team = models.DateTimeField(default=timezone.now, verbose_name="date_created_team")
 
     
     def __str__(self):
@@ -57,7 +62,8 @@ class PlayerScore(models.Model):
     week = models.IntegerField()
     rank = models.IntegerField()
     atp_points = models.IntegerField()
-    
+    date_created_playerScore = models.DateTimeField(default=timezone.now, verbose_name="date_created_playerScore")
+
 
     def __str__(self):
         return str(self.rank)
