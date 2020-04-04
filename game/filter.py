@@ -8,3 +8,4 @@ class PlayerScoreFilter(django_filters.FilterSet):
         model = PlayerScore
         fields = ['playerScoreDate']
 
+

@@ -5,19 +5,15 @@
         <div class="row justify-content-center">
           <div class="col-8">
             <div>
-              <a class="card-title" href="{% url 'tournament-create' %}">Creer un tournoi</a>
-            </div>
-            <div>
-                <h3>Tournois en cours : </h3>    
+                <h3>Tournois en cours </h3>    
             </div>
                 {% for tournoi in tournaments %}
-                <div class="card" style="width: 18rem;">
+                <div class="card" >
                     <div class="card-body">
-                    
-                        <a class="card-title" href="{% url 'tournament-detail' tournoi.id %}">{{ tournoi }}</a>
-                    
+                        <h5 class="card-title" >{{ tournoi.name }}</a>
+                        <h6 class="card-subtitle mb-2 text-muted" href="{% url 'tournament-detail' tournoi.id %}">{{ tournoi.description }}</a>
                     </div>
-                    <a href="{% url 'tournament-delete' tournoi.id %}" class="btn btn-primary">Delete</a>
+                    <a href="{% url 'tournament-detail' tournoi.id %}" class="btn btn-secondary ">Acceder au tournoi </a>
                   </div>                
                 {% endfor %}
             </ul>
