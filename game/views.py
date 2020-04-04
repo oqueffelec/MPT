@@ -109,11 +109,51 @@ class TournamentDetailView(FilterView):
         else:
             return 0
 
+    def getPlayerRankChange(self, player, year, week):
+        year_last_rank = year
+        week_last_rank = week - 1
+        rank_change = ""
+        # Check if in between 2 years
+        if(week==1):
+            year_last_rank = year - 1
+            week_last_rank = 52
+        playerRank = self.getPlayerRank(player, year, week)
+        playerRank_last_week = self.getPlayerRank(player, year_last_rank, week_last_rank)
+        if(playerRank_last_week != 0):
+            rank_change = playerRank_last_week - playerRank
+            if(rank_change>0):
+                rank_change = "↗ " + str(rank_change)
+            else:
+                rank_change = "↘ " + str(abs(rank_change))
+        return rank_change
+
+    def getPlayerListFromTeamObject(self, team): 
+        return [team.player1, team.player2, team.player3, team.player4, team.player5, team.player6, team.player7, team.player8, team.player9, team.player10]
+
+    def getTeamScore(self, team, year, week):
+        players = self.getPlayerListFromTeamObject(team)
+        score=0
+        for player in players :
+            score += self.getPlayerRank(player, year, week)
+        return score 
+
+    def getTeamPlayerRankList(self, team, year, week):
+        player_rank_list = list()
+        for player in self.getPlayerListFromTeamObject(team):
+            player_rank_list.append(self.getPlayerRank(player, year, week))
+        return player_rank_list
+
+    def getTeamPlayerRankChangeList(self, team, year, week):
+        player_rank_change_list = list()
+        for player in self.getPlayerListFromTeamObject(team):
+            player_rank_change_list.append(self.getPlayerRankChange(player, year, week))
+        return player_rank_change_list
+        
     def getTeamsMptScoreList(self, year, week): 
         teams = Team.objects.filter(tournament=self.kwargs['pk'])
         teams_mpt_score_set = list()
         for team in teams :
-            teams_mpt_score_set.append([team, self.getPlayerRank(team.player1, year, week) + self.getPlayerRank(team.player2, year, week) + self.getPlayerRank(team.player3, year, week) + self.getPlayerRank(team.player4, year, week) + self.getPlayerRank(team.player5, year, week) + self.getPlayerRank(team.player6, year, week) + self.getPlayerRank(team.player7, year, week) + self.getPlayerRank(team.player8, year, week) + self.getPlayerRank(team.player9, year, week) + self.getPlayerRank(team.player10, year, week), [self.getPlayerRank(team.player1, year, week), self.getPlayerRank(team.player2, year, week), self.getPlayerRank(team.player3, year, week), self.getPlayerRank(team.player4, year, week), self.getPlayerRank(team.player5, year, week), self.getPlayerRank(team.player6, year, week), self.getPlayerRank(team.player7, year, week), self.getPlayerRank(team.player8, year, week), self.getPlayerRank(team.player9, year, week), self.getPlayerRank(team.player10, year, week)]])
+            teams_mpt_score_set.append([team, self.getTeamScore(team, year, week), self.getTeamPlayerRankList(team, year, week) , self.getTeamPlayerRankChangeList(team, year, week)])
         teams_mpt_score_set_sorted = sorted(teams_mpt_score_set, key=itemgetter(1))
         return teams_mpt_score_set_sorted
             
