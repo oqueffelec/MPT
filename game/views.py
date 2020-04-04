@@ -92,14 +92,6 @@ class TeamUpdateView(UpdateView):
         form.fields['player10'].queryset = player10
         return form
 
-class TournamentTeamsListView(ListView):
-    model = Team
-    template_name = 'game/tournament/tournament-teams.html'
-    context_object_name = 'teams'
-
-    def get_queryset(self, *args, **kwargs):
-        return Team.objects.filter(tournament=self.kwargs['pk'])
-
 class TournamentListView(ListView):
     model = Tournament
     template_name = 'game/home.html'

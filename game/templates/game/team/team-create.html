@@ -1,5 +1,6 @@
-{% load crispy_forms_tags %}
+{% extends "game/base.html" %}
 {% block content %}
+{% load crispy_forms_tags %}
     <div class="content-section">
         <form method="POST">
             {% csrf_token %}
