@@ -2,79 +2,69 @@
 {% load crispy_forms_tags %}
 {% block content %} 
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-8">
-            <h1 class="mt-2">Tournoi {{ tournament.name }}</h1>
-            <hr class="mt-0 mb-4">              
-          </div>
+    <div class="card" >
+      <div class="card-body">
+        <a href="{% url 'team-create' tournament.id %}" class="btn btn-outline-dark btn-sm">Créer une équipe</a> 
+        <a href="{% url 'tournament-delete' tournament.id %}" class="btn btn-outline-dark btn-sm" style="float: right;">Supprimer le tournoi</a> 
+        <h5 class="card-title" align="center">Tournoi {{ tournament.name }}</h5>
+        <div>
+          <form method="get">
+            {{ filter.form }}
+            <button class="btn btn-outline-dark btn-sm" type="submit">Filtrer selon la semaine</button>
+          </form>
+        </div>
+        <div>
+          <h6 class="card-subtitle mb-2 text-muted" align="center">Classement des équipes</h6>
+        </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Equipe</th>
+              <th scope="col">Score MPT</th>
+              <th scope="col">Top 10</th>
+              <th scope="col">Top 20</th>
+              <th scope="col">Top 30</th>
+              <th scope="col">Top 40</th>
+              <th scope="col">Top 50</th>
+              <th scope="col">Top 60</th>
+              <th scope="col">Top 70</th>
+              <th scope="col">Top 80</th>
+              <th scope="col">Top 90</th>
+              <th scope="col">Top 100</th>
+        
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for team, mpt_score, ranks, rank_change in teams_mpt_score_set %}
+            <tr>
+              <th scope="row">{{forloop.counter}}</th>
+              <td>{{team.name}}
+              </td>
+              <td>{{mpt_score}}</td>        
+              <td><div>{{team.player1.first_name}}</div><div>{{team.player1.last_name}}</div><div>{{ranks.0}}</div><div>{{rank_change.0}}</div></td>
+              <td><div>{{team.player2.first_name}}</div><div>{{team.player2.last_name}}</div><div>{{ranks.1}}</div><div>{{rank_change.1}}</div></td>
+              <td><div>{{team.player3.first_name}}</div><div>{{team.player3.last_name}}</div><div>{{ranks.2}}</div><div>{{rank_change.2}}</div></td>
+              <td><div>{{team.player4.first_name}}</div><div>{{team.player4.last_name}}</div><div>{{ranks.3}}</div><div>{{rank_change.3}}</div></td>
+              <td><div>{{team.player5.first_name}}</div><div>{{team.player5.last_name}}</div><div>{{ranks.4}}</div><div>{{rank_change.4}}</div></td>
+              <td><div>{{team.player6.first_name}}</div><div>{{team.player6.last_name}}</div><div>{{ranks.5}}</div><div>{{rank_change.5}}</div></td>
+              <td><div>{{team.player7.first_name}}</div><div>{{team.player7.last_name}}</div><div>{{ranks.6}}</div><div>{{rank_change.6}}</div></td>
+              <td><div>{{team.player8.first_name}}</div><div>{{team.player8.last_name}}</div><div>{{ranks.7}}</div><div>{{rank_change.7}}</div></td>
+              <td><div>{{team.player9.first_name}}</div><div>{{team.player9.last_name}}</div><div>{{ranks.8}}</div><div>{{rank_change.8}}</div></td>
+              <td><div>{{team.player10.first_name}}</div><div>{{team.player10.last_name}}</div><div>{{ranks.9}}</div><div>{{rank_change.9}}</div></td>
+              <td>
+                <a href="{% url 'team-delete' team.tournament.id team.id %}" class="btn btn-dark">Supprimer l'équipe</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
         </div>
       </div>
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-8">
-          <h1 class="mt-2">Classement des Equipes </h1>
-        </div>
-      </div>
-    </div>
-    <div>
-        <a href="{% url 'team-create' tournament.id %}" class="btn btn-primary">Créer une equipe</a> 
-        <a href="{% url 'tournament-delete' tournament.id %}" class="btn btn-dark">Supprimer le tournoi</a> 
     </div>
 
 </body>
-
-  <form method="get">
-      {{ filter.form|crispy }}
-    <button class="btn btn-primary" type="submit">Search</button>
-  </form>
-
-<div class="table-responsive">
-<table class="table table-striped table-bordered">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Equipe</th>
-      <th scope="col">Score MPT</th>
-      <th scope="col">Joueurs</th>
-      <th scope="col">Top 10</th>
-      <th scope="col">Top 20</th>
-      <th scope="col">Top 30</th>
-      <th scope="col">Top 40</th>
-      <th scope="col">Top 50</th>
-      <th scope="col">Top 60</th>
-      <th scope="col">Top 70</th>
-      <th scope="col">Top 80</th>
-      <th scope="col">Top 90</th>
-      <th scope="col">Top 100</th>
-
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for team, mpt_score, ranks, rank_change in teams_mpt_score_set %}
-    <tr>
-      <th scope="row">{{forloop.counter}}</th>
-      <td>{{team.name}}</td>
-      <td>{{mpt_score}}</td>
-      <td><div>Prénom</div><div>Nom</div><div>Classement</div><div>Evolution</div></td>
-
-      <td><div>{{team.player1.first_name}}</div><div>{{team.player1.last_name}}</div><div>{{ranks.0}}</div><div>{{rank_change.0}}</div></td>
-      <td><div>{{team.player2.first_name}}</div><div>{{team.player2.last_name}}</div><div>{{ranks.1}}</div><div>{{rank_change.1}}</div></td>
-      <td><div>{{team.player3.first_name}}</div><div>{{team.player3.last_name}}</div><div>{{ranks.2}}</div><div>{{rank_change.2}}</div></td>
-      <td><div>{{team.player4.first_name}}</div><div>{{team.player4.last_name}}</div><div>{{ranks.3}}</div><div>{{rank_change.3}}</div></td>
-      <td><div>{{team.player5.first_name}}</div><div>{{team.player5.last_name}}</div><div>{{ranks.4}}</div><div>{{rank_change.4}}</div></td>
-      <td><div>{{team.player6.first_name}}</div><div>{{team.player6.last_name}}</div><div>{{ranks.5}}</div><div>{{rank_change.5}}</div></td>
-      <td><div>{{team.player7.first_name}}</div><div>{{team.player7.last_name}}</div><div>{{ranks.6}}</div><div>{{rank_change.6}}</div></td>
-      <td><div>{{team.player8.first_name}}</div><div>{{team.player8.last_name}}</div><div>{{ranks.7}}</div><div>{{rank_change.7}}</div></td>
-      <td><div>{{team.player9.first_name}}</div><div>{{team.player9.last_name}}</div><div>{{ranks.8}}</div><div>{{rank_change.8}}</div></td>
-      <td><div>{{team.player10.first_name}}</div><div>{{team.player10.last_name}}</div><div>{{ranks.9}}</div><div>{{rank_change.9}}</div></td>
-      <td>
-        <a href="{% url 'team-delete' team.tournament.id team.id %}" class="btn btn-dark">Supprimer l'équipe</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-</div>
 {% endblock content %}
