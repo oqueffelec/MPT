@@ -17,14 +17,14 @@ class TeamCreateView(CreateView):
     model = Team
     fields = ['name']
     template_name = 'game/team/team-create.html'
-    sucess_url = reverse_lazy('tournament-detail')
+    sucess_url = reverse_lazy('team-players')
 
     def form_valid(self, form):
         form.instance.tournament = Tournament.objects.get(pk=self.kwargs.get('pk'))
         return super().form_valid(form)
 
     def get_success_url(self, **kwargs):
-        return reverse('tournament-detail', kwargs={'pk': self.object.tournament.pk})
+        return reverse('team-players', kwargs={'pk': self.object.tournament.pk, 'pk2': self.object.id})
 
 class TeamDeleteView(DeleteView):
     model = Team

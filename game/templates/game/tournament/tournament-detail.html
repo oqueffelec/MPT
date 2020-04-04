@@ -35,6 +35,7 @@
       <th scope="col">#</th>
       <th scope="col">Equipe</th>
       <th scope="col">Score MPT</th>
+      <th scope="col">Joueurs</th>
       <th scope="col">Top 10</th>
       <th scope="col">Top 20</th>
       <th scope="col">Top 30</th>
@@ -55,18 +56,19 @@
       <th scope="row">{{forloop.counter}}</th>
       <td>{{team.name}}</td>
       <td>{{mpt_score}}</td>
-      <td>{{ranks.0}} {{team.player1.playerWithoutRank}} {{rank_change.0}}</td>
-      <td>{{ranks.1}} {{team.player2.playerWithoutRank}} {{rank_change.1}}</td>
-      <td>{{ranks.2}} {{team.player3.playerWithoutRank}} {{rank_change.2}}</td>
-      <td>{{ranks.3}} {{team.player4.playerWithoutRank}} {{rank_change.3}}</td>
-      <td>{{ranks.4}} {{team.player5.playerWithoutRank}} {{rank_change.4}}</td>
-      <td>{{ranks.5}} {{team.player6.playerWithoutRank}} {{rank_change.5}}</td>
-      <td>{{ranks.6}} {{team.player7.playerWithoutRank}} {{rank_change.6}}</td>
-      <td>{{ranks.7}} {{team.player8.playerWithoutRank}} {{rank_change.7}}</td>
-      <td>{{ranks.8}} {{team.player9.playerWithoutRank}} {{rank_change.8}}</td>
-      <td>{{ranks.9}} {{team.player10.playerWithoutRank}} {{rank_change.9}}</td>
+      <td><div>Prénom</div><div>Nom</div><div>Classement</div><div>Evolution</div></td>
+
+      <td><div>{{team.player1.first_name}}</div><div>{{team.player1.last_name}}</div><div>{{ranks.0}}</div><div>{{rank_change.0}}</div></td>
+      <td><div>{{team.player2.first_name}}</div><div>{{team.player2.last_name}}</div><div>{{ranks.1}}</div><div>{{rank_change.1}}</div></td>
+      <td><div>{{team.player3.first_name}}</div><div>{{team.player3.last_name}}</div><div>{{ranks.2}}</div><div>{{rank_change.2}}</div></td>
+      <td><div>{{team.player4.first_name}}</div><div>{{team.player4.last_name}}</div><div>{{ranks.3}}</div><div>{{rank_change.3}}</div></td>
+      <td><div>{{team.player5.first_name}}</div><div>{{team.player5.last_name}}</div><div>{{ranks.4}}</div><div>{{rank_change.4}}</div></td>
+      <td><div>{{team.player6.first_name}}</div><div>{{team.player6.last_name}}</div><div>{{ranks.5}}</div><div>{{rank_change.5}}</div></td>
+      <td><div>{{team.player7.first_name}}</div><div>{{team.player7.last_name}}</div><div>{{ranks.6}}</div><div>{{rank_change.6}}</div></td>
+      <td><div>{{team.player8.first_name}}</div><div>{{team.player8.last_name}}</div><div>{{ranks.7}}</div><div>{{rank_change.7}}</div></td>
+      <td><div>{{team.player9.first_name}}</div><div>{{team.player9.last_name}}</div><div>{{ranks.8}}</div><div>{{rank_change.8}}</div></td>
+      <td><div>{{team.player10.first_name}}</div><div>{{team.player10.last_name}}</div><div>{{ranks.9}}</div><div>{{rank_change.9}}</div></td>
       <td>
-        <a href="{% url 'team-players' team.tournament.id team.id %}" class="btn btn-primary">Modifier les joueurs</a>
         <a href="{% url 'team-delete' team.tournament.id team.id %}" class="btn btn-dark">Supprimer l'équipe</a>
       </td>
     </tr>
