@@ -5,16 +5,16 @@
     <form method="POST">
         {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Créer un compte Mon Petit Tennis</legend>
+                <legend class="border-bottom mb-4">Connexion</legend>
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Sign Up</button>
+                <button class="btn btn-outline-info" type="submit">Se Connecter</button>
             </div>
     </form>
     <div class="border-top pt-3">
         <small class="text-muted">
-            Déja inscrit ? <a class="ml-2" href="{% url 'login' %}">Connexion</a>
+            Pas encore de compte Mon Petit Tennis? <a class="ml-2" href="{% url 'register' %}">Créer un compte</a>
         </small>
     </div>
 </div>

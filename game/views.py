@@ -10,14 +10,17 @@ from operator import itemgetter
 from django.forms import ModelForm
 from game.filter import *
 from django_filters.views import FilterView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
-class TeamCreateView(CreateView):
+class TeamCreateView(LoginRequiredMixin, CreateView):
     model = Team
     fields = ['name']
     template_name = 'game/team/team-create.html'
     sucess_url = reverse_lazy('team-players')
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
 
     def form_valid(self, form):
         form.instance.tournament = Tournament.objects.get(pk=self.kwargs.get('pk'))
@@ -26,23 +29,27 @@ class TeamCreateView(CreateView):
     def get_success_url(self, **kwargs):
         return reverse('team-players', kwargs={'pk': self.object.tournament.pk, 'pk2': self.object.id})
 
-class TeamDeleteView(DeleteView):
+class TeamDeleteView(LoginRequiredMixin, DeleteView):
     model = Team
     template_name = 'game/team/team-delete.html'
     context_object_name = 'teams'   
     sucess_url = reverse_lazy('tournament-detail')
     pk_url_kwarg = 'pk2'
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
 
     def get_success_url(self, **kwargs):
         return reverse('tournament-detail', kwargs={'pk': self.object.tournament.pk})
 
-class TeamUpdateView(UpdateView):
+class TeamUpdateView(LoginRequiredMixin, UpdateView):
     model = Team
     template_name = 'game/team/team-players.html'
     context_object_name = 'teams'   
     sucess_url = reverse_lazy('tournament-detail')
     pk_url_kwarg = 'pk2'
     fields = ['player1', 'player2', 'player3', 'player4', 'player5', 'player6', 'player7', 'player8', 'player9', 'player10']
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
 
     def get_success_url(self, **kwargs):
         return reverse('tournament-detail', kwargs={'pk': self.object.tournament.pk})
@@ -141,18 +148,21 @@ class TournamentDetailView(FilterView):
         ctx['tournament'] = Tournament.objects.get(id=self.kwargs['pk'])
         return ctx
 
-class TournamentCreateView(CreateView):
+class TournamentCreateView(LoginRequiredMixin, CreateView):
     model = Tournament
     fields = ['name', 'description']
     template_name = 'game/tournament/tournament-create.html'
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
 
-class TournamentDeleteView(DeleteView):
+class TournamentDeleteView(LoginRequiredMixin, DeleteView):
     model = Tournament
     template_name = 'game/tournament/tournament-delete.html'
     context_object_name = 'tournaments'
     fields = ['name']
     sucess_url = reverse_lazy('home')
-
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
 
 class PlayerListView(ListView):
     model = PlayerScore

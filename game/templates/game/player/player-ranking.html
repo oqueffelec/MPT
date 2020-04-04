@@ -1,39 +1,31 @@
 {% extends "game/base.html" %}
 {% block content %} 
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-8">
-            <h1 class="mt-2">Classement ATP au  {% now "SHORT_DATETIME_FORMAT" %} : </h1>
-            <hr class="mt-0 mb-4">              
-          </div>
-        </div>
-      </div>
-      <div class="card" >
-    <div class="card-body">
-
-
-      <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Classement</th>
-              <th scope="col">Joueur</th>
-              <th scope="col">Nationalité</th>
-              <th scope="col">Points ATP</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for playerScore in actualPlayerScores %}
-            <tr>
-              <th scope="row">{{playerScore.rank}}</th>
-              <td>{{playerScore.player.first_name}} {{playerScore.player.last_name}}</td>
-              <td>{{playerScore.player.nationality}}</td>
-              <td>{{playerScore.atp_points}}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <div class="col-8">
+              <h1 class="mt-2">Classement ATP au  {% now "SHORT_DATE_FORMAT" %} : </h1>
+              <hr class="mt-0 mb-4">              
+            </div>
+          <tr>
+            <th scope="col">Classement</th>
+            <th scope="col">Joueur</th>
+            <th scope="col">Nationalité</th>
+            <th scope="col">Points ATP</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for playerScore in actualPlayerScores %}
+          <tr>
+            <th scope="row">{{playerScore.rank}}</th>
+            <td>{{playerScore.player.first_name}} {{playerScore.player.last_name}}</td>
+            <td>{{playerScore.player.nationality}}</td>
+            <td>{{playerScore.atp_points}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
 </body>
 {% endblock %}

@@ -1,0 +1,10 @@
+{% extends "game/base.html" %}
+{% block content %}
+<h2>Vous avez été déconnecté de Mon Petit Tennis</h2>
+<div class="border-top pt-3">
+        <small class="text-muted">
+            <a class="ml-2" href="{% url 'login' %}">Reconnexion</a>
+        </small>
+    </div>
+</div>
+{% endblock content %}
