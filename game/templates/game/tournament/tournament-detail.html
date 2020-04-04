@@ -17,13 +17,13 @@
         </div>
       </div>
     <div>
-      Nom du tournoi : {{ tournaments.name }}
+      Nom du tournoi : {{ tournament.name }}
     </div>
     <div>
-      Description : {{ tournaments.description }}
+      Description : {{ tournament.description }}
     </div>
     <div>
-      Date de création : {{ tournaments.date_created_tournament }}
+      Date de création : {{ tournament.date_created_tournament }}
     </div>
     <div class="container">
       <div class="row justify-content-center">
@@ -33,25 +33,17 @@
       </div>
     </div>
     <div>
-        <a href="{% url 'team-create' object.id %}" class="btn btn-primary">Créer une equipe</a> 
-        <a href="{% url 'tournament-delete' object.id %}" class="btn btn-dark">Supprimer le tournoi</a> 
+        <a href="{% url 'team-create' tournament.id %}" class="btn btn-primary">Créer une equipe</a> 
+        <a href="{% url 'tournament-delete' tournament.id %}" class="btn btn-dark">Supprimer le tournoi</a> 
     </div>
-    <form action="PageObjects" method="post">
-    <label>Semaine :<label>
-      <select name="dropdownweek">
-          {% for i in week %}
-          <option value="{{ i }}">{{ i }}</option>
-          {% endfor %}
-      </select>
-    </form>
 
-    <label>Année :<label>
-      <select name="dropdownyear">
-          {% for i in year %}
-          <option value="{{ i }}">{{ i }}</option>
-          {% endfor %}
-      </select>
 </body>
+
+  <form method="get">
+      {{ filter.form }}
+    <button class="btn btn-primary" type="submit">Search</button>
+  </form>
+
 <div class="table-responsive">
 <table class="table table-striped table-bordered">
   <thead class="thead-dark">
@@ -79,16 +71,16 @@
       <th scope="row">{{forloop.counter}}</th>
       <td>{{team.name}}</td>
       <td>{{mpt_score}}</td>
-      <td>{{team.player1}}</td>
-      <td>{{team.player2}}</td>
-      <td>{{team.player3}}</td>
-      <td>{{team.player4}}</td>
-      <td>{{team.player5}}</td>
-      <td>{{team.player6}}</td>
-      <td>{{team.player7}}</td>
-      <td>{{team.player8}}</td>
-      <td>{{team.player9}}</td>
-      <td>{{team.player10}}</td>
+      <td>{{ranks.0}} {{team.player1.playerWithoutRank}}</td>
+      <td>{{ranks.1}} {{team.player2.playerWithoutRank}}</td>
+      <td>{{ranks.2}} {{team.player3.playerWithoutRank}}</td>
+      <td>{{ranks.3}} {{team.player4.playerWithoutRank}}</td>
+      <td>{{ranks.4}} {{team.player5.playerWithoutRank}}</td>
+      <td>{{ranks.5}} {{team.player6.playerWithoutRank}}</td>
+      <td>{{ranks.6}} {{team.player7.playerWithoutRank}}</td>
+      <td>{{ranks.7}} {{team.player8.playerWithoutRank}}</td>
+      <td>{{ranks.8}} {{team.player9.playerWithoutRank}}</td>
+      <td>{{ranks.9}} {{team.player10.playerWithoutRank}}</td>
       <td>
         <a href="{% url 'team-players' team.tournament.id team.id %}" class="btn btn-primary">Modifier les joueurs</a>
         <a href="{% url 'team-delete' team.tournament.id team.id %}" class="btn btn-dark">Supprimer l'équipe</a>
@@ -98,4 +90,5 @@
   </tbody>
 </table>
 </div>
+
 </html>

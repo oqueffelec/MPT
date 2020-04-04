@@ -29,8 +29,11 @@ class Player(models.Model):
 
 
     def __str__(self):
-        return str(PlayerScore.objects.get(player=self, year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1])) + ' ' + self.first_name + ' ' + self.last_name + ' -- ' + self.nationality 
+        return str(PlayerScore.objects.get(player=self, playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1])) + ' ' + self.first_name + ' ' + self.last_name + ' -- ' + self.nationality 
 
+    def playerWithoutRank(self): 
+        return self.first_name + ' ' + self.last_name + ' -- ' + self.nationality 
+        
 class Team(models.Model):
     name = models.TextField()
     tournament = models.ForeignKey('Tournament', on_delete=models.CASCADE)
@@ -58,16 +61,20 @@ class Team(models.Model):
 
 class PlayerScore(models.Model):
     player = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='player', blank=True, null=True, default=1)
-    year = models.IntegerField()
-    week = models.IntegerField()
     rank = models.IntegerField()
     atp_points = models.IntegerField()
-    date_created_playerScore = models.DateTimeField(default=timezone.now, verbose_name="date_created_playerScore")
+    playerScoreDate = models.ForeignKey('PlayerScoreDate', on_delete=models.CASCADE, blank=True, null=True)
 
 
     def __str__(self):
         return str(self.rank)
 
+class PlayerScoreDate(models.Model):
+    year = models.IntegerField()
+    week = models.IntegerField()
+    date_created_playerScoreDate = models.DateTimeField(default=timezone.now, verbose_name="date_created_playerScore",  blank=True, null=True)
 
+    def __str__(self):
+        return "Semaine : " + str(self.week) + "   Année : " + str(self.year)
 
 

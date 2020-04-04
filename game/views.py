@@ -7,6 +7,11 @@ from game.rankapi import *
 import datetime 
 import collections
 from operator import itemgetter
+from django.forms import ModelForm
+from game.filter import *
+from django_filters.views import FilterView
+
+
 
 class TeamCreateView(CreateView):
     model = Team
@@ -45,34 +50,34 @@ class TeamUpdateView(UpdateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class=None)
 
-        player1score = PlayerScore.objects.filter(year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1], rank__gte=1,rank__lte=10).order_by('rank').values_list('player', flat=True)
+        player1score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=1,rank__lte=10).order_by('rank').values_list('player', flat=True)
         player1 = Player.objects.filter(id__in = player1score)
 
-        player2score = PlayerScore.objects.filter(year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1], rank__gte=11,rank__lte=20).order_by('rank').values_list('player', flat=True)
+        player2score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=11,rank__lte=20).order_by('rank').values_list('player', flat=True)
         player2 = Player.objects.filter(id__in = player2score)
 
-        player3score = PlayerScore.objects.filter(year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1], rank__gte=21,rank__lte=30).order_by('rank').values_list('player', flat=True)
+        player3score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=21,rank__lte=30).order_by('rank').values_list('player', flat=True)
         player3 = Player.objects.filter(id__in = player3score)
 
-        player4score = PlayerScore.objects.filter(year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1], rank__gte=31,rank__lte=40).order_by('rank').values_list('player', flat=True)
+        player4score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=31,rank__lte=40).order_by('rank').values_list('player', flat=True)
         player4 = Player.objects.filter(id__in = player4score)
 
-        player5score = PlayerScore.objects.filter(year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1], rank__gte=41,rank__lte=50).order_by('rank').values_list('player', flat=True)
+        player5score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=41,rank__lte=50).order_by('rank').values_list('player', flat=True)
         player5 = Player.objects.filter(id__in = player5score)
 
-        player6score = PlayerScore.objects.filter(year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1], rank__gte=51,rank__lte=60).order_by('rank').values_list('player', flat=True)
+        player6score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=51,rank__lte=60).order_by('rank').values_list('player', flat=True)
         player6 = Player.objects.filter(id__in = player6score)
 
-        player7score = PlayerScore.objects.filter(year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1], rank__gte=61,rank__lte=70).order_by('rank').values_list('player', flat=True)
+        player7score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=61,rank__lte=70).order_by('rank').values_list('player', flat=True)
         player7 = Player.objects.filter(id__in = player7score)
 
-        player8score = PlayerScore.objects.filter(year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1], rank__gte=71,rank__lte=80).order_by('rank').values_list('player', flat=True)
+        player8score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=71,rank__lte=80).order_by('rank').values_list('player', flat=True)
         player8 = Player.objects.filter(id__in = player8score)
 
-        player9score = PlayerScore.objects.filter(year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1], rank__gte=81,rank__lte=90).order_by('rank').values_list('player', flat=True)
+        player9score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=81,rank__lte=90).order_by('rank').values_list('player', flat=True)
         player9 = Player.objects.filter(id__in = player9score)
 
-        player10score = PlayerScore.objects.filter(year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1], rank__gte=91,rank__lte=100).order_by('rank').values_list('player', flat=True)
+        player10score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=91,rank__lte=100).order_by('rank').values_list('player', flat=True)
         player10 = Player.objects.filter(id__in = player10score)
 
         form.fields['player1'].queryset = player1
@@ -101,52 +106,31 @@ class TournamentListView(ListView):
     context_object_name = 'tournaments'
     ordering = ['-date_created_tournament']
 
-class TournamentDetailView(DetailView):
-    model = Tournament
+class TournamentDetailView(FilterView):
     template_name = 'game/tournament/tournament-detail.html'
-    context_object_name = 'tournaments'
+    model = PlayerScore
+    filterset_class = PlayerScoreFilter
     
-    def getActualPlayerRank(self, player):
-        if(PlayerScore.objects.filter(player=player).exists()):
-            return PlayerScore.objects.get(player=player, year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1]).rank
+    def getPlayerRank(self, player, year, week):
+        if(PlayerScore.objects.filter(player=player, playerScoreDate__year=year, playerScoreDate__week=week).exists()):
+            return PlayerScore.objects.get(player=player, playerScoreDate__year=year, playerScoreDate__week=week).rank
         else:
             return 0
 
-    def getTeamsMptScoreDict(self): 
+    def getTeamsMptScoreList(self, year, week): 
         teams = Team.objects.filter(tournament=self.kwargs['pk'])
         teams_mpt_score_set = list()
         for team in teams :
-            teams_mpt_score_set.append([team, self.getActualPlayerRank(team.player1) + self.getActualPlayerRank(team.player2) + self.getActualPlayerRank(team.player3) + self.getActualPlayerRank(team.player4) + self.getActualPlayerRank(team.player5) + self.getActualPlayerRank(team.player6) + self.getActualPlayerRank(team.player7) + self.getActualPlayerRank(team.player8) + self.getActualPlayerRank(team.player9) + self.getActualPlayerRank(team.player10), [self.getActualPlayerRank(team.player1), self.getActualPlayerRank(team.player2), self.getActualPlayerRank(team.player3), self.getActualPlayerRank(team.player4), self.getActualPlayerRank(team.player5), self.getActualPlayerRank(team.player6), self.getActualPlayerRank(team.player7), self.getActualPlayerRank(team.player8), self.getActualPlayerRank(team.player9), self.getActualPlayerRank(team.player10)]])
+            teams_mpt_score_set.append([team, self.getPlayerRank(team.player1, year, week) + self.getPlayerRank(team.player2, year, week) + self.getPlayerRank(team.player3, year, week) + self.getPlayerRank(team.player4, year, week) + self.getPlayerRank(team.player5, year, week) + self.getPlayerRank(team.player6, year, week) + self.getPlayerRank(team.player7, year, week) + self.getPlayerRank(team.player8, year, week) + self.getPlayerRank(team.player9, year, week) + self.getPlayerRank(team.player10, year, week), [self.getPlayerRank(team.player1, year, week), self.getPlayerRank(team.player2, year, week), self.getPlayerRank(team.player3, year, week), self.getPlayerRank(team.player4, year, week), self.getPlayerRank(team.player5, year, week), self.getPlayerRank(team.player6, year, week), self.getPlayerRank(team.player7, year, week), self.getPlayerRank(team.player8, year, week), self.getPlayerRank(team.player9, year, week), self.getPlayerRank(team.player10, year, week)]])
         teams_mpt_score_set_sorted = sorted(teams_mpt_score_set, key=itemgetter(1))
         return teams_mpt_score_set_sorted
-    
-    def getWeekList(self):
-        tournament = Tournament.objects.get(id=self.kwargs['pk'])
-        week_start = tournament.date_created_tournament.isocalendar()[1]
-        week_end = datetime.datetime.now().isocalendar()[1]
-        return list(range(week_start, week_end + 1))
-
-    def getYearList(self):
-        tournament = Tournament.objects.get(id=self.kwargs['pk'])
-        week_start = tournament.date_created_tournament.year
-        week_end = datetime.datetime.now().year
-        return list(range(week_start, week_end + 1))
-
-    '''def dropdown(self, request):
-        if request.method == 'POST':
-            form = YourForm(request.POST)
-
-        if form.is_valid():
-        answer = form.cleaned_data['value']
-            print(request.GET['dropdownweek'])
-            return request.GET['dropdownweek'] 
-'''
-
+            
     def get_context_data(self, **kwargs):
         ctx = super(TournamentDetailView, self).get_context_data(**kwargs)
-        ctx['teams_mpt_score_set'] = self.getTeamsMptScoreDict()
-        ctx['week'] = self.getWeekList()
-        ctx['year'] = self.getYearList()
+        filtered_year = ctx['filter'].qs.first().playerScoreDate.year
+        filtered_week = ctx['filter'].qs.first().playerScoreDate.week
+        ctx['teams_mpt_score_set'] = self.getTeamsMptScoreList(filtered_year, filtered_week)
+        ctx['tournament'] = Tournament.objects.get(id=self.kwargs['pk'])
         return ctx
 
 class TournamentCreateView(CreateView):
@@ -169,12 +153,12 @@ class PlayerListView(ListView):
     ordering = ['rank'] 
     def get_context_data(self, **kwargs):
         ctx = super(PlayerListView, self).get_context_data(**kwargs)
-        ctx['actualPlayerScores'] = PlayerScore.objects.filter(year=datetime.datetime.now().year, week=datetime.datetime.now().isocalendar()[1])
+        ctx['actualPlayerScores'] = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1])
         return ctx
     
     api_tennis_uri = "api.sportradar.us"
     REST_method = "GET"
-    resource = "/tennis-t2/en/players/rankings.json?api_key=983nwtatskua4b54gawven3n"
+    resource = "/tennis-t2/en/players/rankings.json?api_key=bxrj5yreuyd9r4yy8afae3mb"
     
     api_response = api_tennis_connection(api_tennis_uri, REST_method, resource)
     api_data_to_player_model(api_response) 
