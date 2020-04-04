@@ -49,47 +49,23 @@ class TeamUpdateView(UpdateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class=None)
+        playerList = list()
+        counter=1
+        for player in self.fields:
+            playerScore = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=counter,rank__lte=counter + 9).order_by('rank').values_list('player', flat=True)
+            playerList.append(Player.objects.filter(id__in = playerScore))
+            counter += 10
 
-        player1score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=1,rank__lte=10).order_by('rank').values_list('player', flat=True)
-        player1 = Player.objects.filter(id__in = player1score)
-
-        player2score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=11,rank__lte=20).order_by('rank').values_list('player', flat=True)
-        player2 = Player.objects.filter(id__in = player2score)
-
-        player3score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=21,rank__lte=30).order_by('rank').values_list('player', flat=True)
-        player3 = Player.objects.filter(id__in = player3score)
-
-        player4score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=31,rank__lte=40).order_by('rank').values_list('player', flat=True)
-        player4 = Player.objects.filter(id__in = player4score)
-
-        player5score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=41,rank__lte=50).order_by('rank').values_list('player', flat=True)
-        player5 = Player.objects.filter(id__in = player5score)
-
-        player6score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=51,rank__lte=60).order_by('rank').values_list('player', flat=True)
-        player6 = Player.objects.filter(id__in = player6score)
-
-        player7score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=61,rank__lte=70).order_by('rank').values_list('player', flat=True)
-        player7 = Player.objects.filter(id__in = player7score)
-
-        player8score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=71,rank__lte=80).order_by('rank').values_list('player', flat=True)
-        player8 = Player.objects.filter(id__in = player8score)
-
-        player9score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=81,rank__lte=90).order_by('rank').values_list('player', flat=True)
-        player9 = Player.objects.filter(id__in = player9score)
-
-        player10score = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1], rank__gte=91,rank__lte=100).order_by('rank').values_list('player', flat=True)
-        player10 = Player.objects.filter(id__in = player10score)
-
-        form.fields['player1'].queryset = player1
-        form.fields['player2'].queryset = player2
-        form.fields['player3'].queryset = player3
-        form.fields['player4'].queryset = player4
-        form.fields['player5'].queryset = player5
-        form.fields['player6'].queryset = player6
-        form.fields['player7'].queryset = player7
-        form.fields['player8'].queryset = player8
-        form.fields['player9'].queryset = player9
-        form.fields['player10'].queryset = player10
+        form.fields['player1'].queryset = playerList[0]
+        form.fields['player2'].queryset = playerList[1]
+        form.fields['player3'].queryset = playerList[2]
+        form.fields['player4'].queryset = playerList[3]
+        form.fields['player5'].queryset = playerList[4]
+        form.fields['player6'].queryset = playerList[5]
+        form.fields['player7'].queryset = playerList[6]
+        form.fields['player8'].queryset = playerList[7]
+        form.fields['player9'].queryset = playerList[8]
+        form.fields['player10'].queryset = playerList[9]
         return form
 
 class TournamentListView(ListView):
@@ -148,7 +124,7 @@ class TournamentDetailView(FilterView):
         for player in self.getPlayerListFromTeamObject(team):
             player_rank_change_list.append(self.getPlayerRankChange(player, year, week))
         return player_rank_change_list
-        
+
     def getTeamsMptScoreList(self, year, week): 
         teams = Team.objects.filter(tournament=self.kwargs['pk'])
         teams_mpt_score_set = list()
