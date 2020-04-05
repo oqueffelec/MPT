@@ -56,7 +56,7 @@ class PlayerScore(models.Model):
     player = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='player', blank=True, null=True, default=1)
     rank = models.IntegerField()
     atp_points = models.IntegerField()
-    playerScoreDate = models.ForeignKey('PlayerScoreDate', on_delete=models.CASCADE, blank=True, null=True)
+    playerScoreDate = models.ForeignKey('PlayerScoreDate', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Date")
 
     def __str__(self):
         return str(self.rank)

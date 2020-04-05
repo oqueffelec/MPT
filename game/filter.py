@@ -7,5 +7,8 @@ class PlayerScoreFilter(django_filters.FilterSet):
     class Meta:
         model = PlayerScore
         fields = ['playerScoreDate']
+        labels = {
+            'playerScoreDate' : 'Date'
+        }
 
 

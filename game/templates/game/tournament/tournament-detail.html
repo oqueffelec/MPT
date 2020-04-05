@@ -4,9 +4,7 @@
 <body>
     <div class="card" >
       <div class="card-body">
-        {% if user.is_authenticated %}
-          <a href="{% url 'team-create' tournament.id %}" class="btn btn-outline-dark btn-sm">Créer une équipe</a> 
-        {% endif %}
+        <a href="{% url 'team-create' tournament.id %}" class="btn btn-outline-dark btn-sm">Créer une équipe</a> 
         {% if user == tournament.user %}
           <a href="{% url 'tournament-delete' tournament.id %}" class="btn btn-outline-dark btn-sm" style="float: right;">Supprimer le tournoi</a> 
         {% endif %}
@@ -17,6 +15,7 @@
             <button class="btn btn-outline-dark btn-sm" type="submit">Filtrer selon la semaine</button>
           </form>
         </div>
+        <h1></h1>
         <div>
           <h6 class="card-subtitle mb-2 text-muted" align="center">Classement des équipes</h6>
         </div>
@@ -60,7 +59,9 @@
               <td><div>{{team.player9.first_name}}</div><div>{{team.player9.last_name}}</div><div>{{ranks.8}}</div><div>{{rank_change.8}}</div></td>
               <td><div>{{team.player10.first_name}}</div><div>{{team.player10.last_name}}</div><div>{{ranks.9}}</div><div>{{rank_change.9}}</div></td>
               <td>
-                <a href="{% url 'team-delete' team.tournament.id team.id %}" class="btn btn-dark">Supprimer l'équipe</a>
+                {% if user == tournament.user %}
+                  <a href="{% url 'team-delete' team.tournament.id team.id %}" class="btn btn-dark">Supprimer l'équipe</a>
+                {% endif %}
               </td>
             </tr>
             {% endfor %}

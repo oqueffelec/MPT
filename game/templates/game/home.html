@@ -11,9 +11,9 @@
                 <div class="card" >
                     <div class="card-body">
                         <h5 class="card-title" >{{ tournoi.name }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted" href="{% url 'tournament-detail' tournoi.id %}">{{ tournoi.user}}</h6>
                         <h6 class="card-subtitle mb-2 text-muted" href="{% url 'tournament-detail' tournoi.id %}">{{ tournoi.date_created_tournament|date:"M d, Y" }}</h6>
                         <p class="card-text">{{ tournoi.description }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted" href="{% url 'tournament-detail' tournoi.id %}">Créé par {{ tournoi.user}}</h6>
                     </div>
                     <a href="{% url 'tournament-detail' tournoi.id %}" class="btn btn-secondary ">Acceder au tournoi </a>
                   </div>                
