@@ -4,8 +4,12 @@
 <body>
     <div class="card" >
       <div class="card-body">
-        <a href="{% url 'team-create' tournament.id %}" class="btn btn-outline-dark btn-sm">Créer une équipe</a> 
-        <a href="{% url 'tournament-delete' tournament.id %}" class="btn btn-outline-dark btn-sm" style="float: right;">Supprimer le tournoi</a> 
+        {% if user.is_authenticated %}
+          <a href="{% url 'team-create' tournament.id %}" class="btn btn-outline-dark btn-sm">Créer une équipe</a> 
+        {% endif %}
+        {% if user == tournament.user %}
+          <a href="{% url 'tournament-delete' tournament.id %}" class="btn btn-outline-dark btn-sm" style="float: right;">Supprimer le tournoi</a> 
+        {% endif %}
         <h5 class="card-title" align="center">Tournoi {{ tournament.name }}</h5>
         <div>
           <form method="get">

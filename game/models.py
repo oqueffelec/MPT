@@ -2,11 +2,14 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 import datetime
+from django.contrib.auth.models import User
+
 
 class Tournament(models.Model):
     name = models.CharField(max_length=100)
     date_created_tournament = models.DateTimeField(default=timezone.now, verbose_name="date_created_tournament")
     description = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, default=1)
 
     def __str__(self):
         return self.name
@@ -29,6 +32,7 @@ class Player(models.Model):
 class Team(models.Model):
     name = models.CharField(max_length=100)
     tournament = models.ForeignKey('Tournament', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, default=1)
     
     player1 = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='player1_player', blank=True, null=True )
     player2 = models.ForeignKey('Player', on_delete=models.CASCADE, related_name='player2_player', blank=True, null=True )

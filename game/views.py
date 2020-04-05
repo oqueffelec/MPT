@@ -155,6 +155,10 @@ class TournamentCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
     redirect_field_name = 'redirect_to'
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user      
+        return super().form_valid(form)
+
 class TournamentDeleteView(LoginRequiredMixin, DeleteView):
     model = Tournament
     template_name = 'game/tournament/tournament-delete.html'
