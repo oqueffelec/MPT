@@ -183,6 +183,6 @@ class PlayerListView(ListView):
     REST_method = "GET"
     resource = "/tennis-t2/en/players/rankings.json?api_key=bxrj5yreuyd9r4yy8afae3mb"
     
-    api_response = api_tennis_connection(api_tennis_uri, REST_method, resource)
-    api_data_to_player_model(api_response) 
+    #api_response = api_tennis_connection(api_tennis_uri, REST_method, resource)
+    #api_data_to_player_model(api_response) 
 
