@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from game.models import *
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
-from game.rankapi import *
 import datetime 
 import collections
 from operator import itemgetter
@@ -177,12 +176,4 @@ class PlayerListView(ListView):
     def get_context_data(self, **kwargs):
         ctx = super(PlayerListView, self).get_context_data(**kwargs)
         ctx['actualPlayerScores'] = PlayerScore.objects.filter(playerScoreDate__year=datetime.datetime.now().year, playerScoreDate__week=datetime.datetime.now().isocalendar()[1])
-        return ctx
-    
-    api_tennis_uri = "api.sportradar.us"
-    REST_method = "GET"
-    resource = "/tennis-t2/en/players/rankings.json?api_key=bxrj5yreuyd9r4yy8afae3mb"
-    
-    api_response = api_tennis_connection(api_tennis_uri, REST_method, resource)
-    api_data_to_player_model(api_response) 
-
+        return ctx 

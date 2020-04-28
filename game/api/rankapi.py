@@ -5,6 +5,9 @@ import sys
 from game.models import *
 import datetime 
 
+api_tennis_uri = "api.sportradar.us"
+REST_method = "GET"
+resource = "/tennis-t2/en/players/rankings.json?api_key=9uhz8mcja8pb5krnez2nr8t8"
 
 def api_tennis_connection(api_uri, REST_method, resource):
     conn = http.client.HTTPSConnection(api_uri)
@@ -50,4 +53,6 @@ def api_data_to_player_model(api_response):
             playerScoreDate = getOrCreateCurrentPlayerScoreDate(player)
             PlayerScore(player=player, playerScoreDate=playerScoreDate, rank=item['rank'], atp_points=item['points']).save()
 
-
+def job():
+    api_response = api_tennis_connection(api_tennis_uri, REST_method, resource)
+    api_data_to_player_model(api_response)
