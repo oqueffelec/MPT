@@ -1,2 +1,2 @@
 web: gunicorn MPT.wsgi
-clock: python game/apps.py
+apirank: python game/apps.py
