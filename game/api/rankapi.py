@@ -55,11 +55,11 @@ def api_data_to_player_model(api_response):
             playerScoreDate = getOrCreateCurrentPlayerScoreDate(player)
             PlayerScore(player=player, playerScoreDate=playerScoreDate, rank=item['rank'], atp_points=item['points']).save()
 
-sched = BlockingScheduler()
+#sched = BlockingScheduler()
 
-@sched.scheduled_job('cron', day_of_week='sat', hour=15, minute=53)
+#@sched.scheduled_job('cron', day_of_week='sat', hour=15, minute=53)
 def job():
     api_response = api_tennis_connection(api_tennis_uri, REST_method, resource)
     api_data_to_player_model(api_response)
 
-sched.start()
+#sched.start()
