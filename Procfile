@@ -1,2 +1,2 @@
 web: gunicorn MPT.wsgi
-api: python game/api/scheduler.py
+api: python scheduler.py
