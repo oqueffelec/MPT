@@ -55,7 +55,8 @@ class Command(BaseCommand):
                 player.save()
                 playerScoreDate = getOrCreateCurrentPlayerScoreDate(player)
                 PlayerScore(player=player, playerScoreDate=playerScoreDate, rank=item['rank'], atp_points=item['points']).save()
-
+        return
+        
     def handle(self):
         api_response = api_tennis_connection(api_tennis_uri, REST_method, resource)
         api_data_to_player_model(api_response)
