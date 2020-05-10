@@ -1,6 +1,9 @@
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from game.api.rankapi import job
+import os
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MPT.settings')
 
 sched = BackgroundScheduler()
 
