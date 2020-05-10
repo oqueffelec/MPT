@@ -1,2 +1,2 @@
 web: gunicorn MPT.wsgi
-apirank: python game/api/rankapi.py
+api: python game/api/scheduler.py
