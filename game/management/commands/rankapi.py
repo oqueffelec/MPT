@@ -58,6 +58,6 @@ class Command(BaseCommand):
         return
 
     def handle(self, *args, **options):
-        api_response = self.api_tennis_connection(api_tennis_uri, REST_method, resource)
+        api_response = self.api_tennis_connection(self.api_tennis_uri, self.REST_method, self.resource)
         self.api_data_to_player_model(api_response)
         return 
