@@ -1,2 +1,2 @@
 web: gunicorn MPT.wsgi
-api: python scheduler.py
+clock: python clock.py
