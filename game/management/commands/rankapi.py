@@ -42,22 +42,22 @@ class Command(BaseCommand):
                         playerScore = PlayerScore.objects.filter(player=player)
                         # Create score for that player only if there is no score for current year and current week
                         if(not(playerScore.filter(playerScoreDate__week = datetime.datetime.now().isocalendar()[1]).exists() or not(playerScore.filter(playerScoreDate__year = datetime.datetime.now().year).exists())) and datetime.datetime.now().hour > 10):
-                            playerScoreDate = getOrCreateCurrentPlayerScoreDate(player)
+                            playerScoreDate = self.getOrCreateCurrentPlayerScoreDate(player)
                             PlayerScore(player=player, playerScoreDate=playerScoreDate, rank=item['rank'], atp_points=item['points']).save()
                     else:
-                        playerScoreDate = getOrCreateCurrentPlayerScoreDate(player)
+                        playerScoreDate = self.getOrCreateCurrentPlayerScoreDate(player)
                         PlayerScore(player=player, playerScoreDate=playerScoreDate, rank=item['rank'], atp_points=item['points']).save()
                 else:
-                    playerScoreDate = getOrCreateCurrentPlayerScoreDate(player)
+                    playerScoreDate = self.getOrCreateCurrentPlayerScoreDate(player)
                     PlayerScore(player=player, playerScoreDate=playerScoreDate, rank=item['rank'], atp_points=item['points']).save()
             else:
                 player = Player(first_name=item['player']['name'].split(', ')[1], last_name=item['player']['name'].split(', ')[0], nationality=item['player']['nationality'])
                 player.save()
-                playerScoreDate = getOrCreateCurrentPlayerScoreDate(player)
+                playerScoreDate = self.getOrCreateCurrentPlayerScoreDate(player)
                 PlayerScore(player=player, playerScoreDate=playerScoreDate, rank=item['rank'], atp_points=item['points']).save()
         return
 
     def handle(self, *args, **options):
-        api_response = api_tennis_connection(api_tennis_uri, REST_method, resource)
-        api_data_to_player_model(api_response)
+        api_response = self.api_tennis_connection(api_tennis_uri, REST_method, resource)
+        self.api_data_to_player_model(api_response)
         return 
