@@ -10,7 +10,7 @@ from django.core.management.base import BaseCommand, CommandError
 class Command(BaseCommand):  
     api_tennis_uri = "api.sportradar.us"
     REST_method = "GET"
-    resource = "/tennis-t2/en/players/rankings.json?api_key=9uhz8mcja8pb5krnez2nr8t8"
+    resource = "/tennis-t2/en/players/rankings.json?api_key=7f584t9feybdqt2mkkccka6v"
 
     def api_tennis_connection(self, api_uri, REST_method, resource):
         conn = http.client.HTTPSConnection(api_uri)
